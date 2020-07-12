@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Sentences-tfjs/static/css/main.5f361e03.chunk.css",
+    "main.js": "/Sentences-tfjs/static/js/main.85e132fe.chunk.js",
+    "main.js.map": "/Sentences-tfjs/static/js/main.85e132fe.chunk.js.map",
+    "runtime-main.js": "/Sentences-tfjs/static/js/runtime-main.3fe0bdcc.js",
+    "runtime-main.js.map": "/Sentences-tfjs/static/js/runtime-main.3fe0bdcc.js.map",
+    "static/js/2.314c8646.chunk.js": "/Sentences-tfjs/static/js/2.314c8646.chunk.js",
+    "static/js/2.314c8646.chunk.js.map": "/Sentences-tfjs/static/js/2.314c8646.chunk.js.map",
+    "index.html": "/Sentences-tfjs/index.html",
+    "precache-manifest.e9505b49b70bacb3ee7f5c19053675c0.js": "/Sentences-tfjs/precache-manifest.e9505b49b70bacb3ee7f5c19053675c0.js",
+    "service-worker.js": "/Sentences-tfjs/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/Sentences-tfjs/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.314c8646.chunk.js.LICENSE.txt": "/Sentences-tfjs/static/js/2.314c8646.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/Sentences-tfjs/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3fe0bdcc.js",
+    "static/js/2.314c8646.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.85e132fe.chunk.js"
+  ]
+}
