@@ -1,0 +1,39 @@
+
+.Dashed:hover  {
+    border-style: dashed;
+    border-width: 2px;
+    border-radius: 20px;
+    display: flex;
+background-color: rgb(240, 240, 149);
+position: 'absolute';
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+z-index: 9999
+}
+.noDashed{
+    border-style: dashed;
+    border-width: 2px;
+    border-radius: 20px;
+    display: flex;
+    border-color:gray;
+    position: 'absolute';
+    top: 50%;
+    right: 0;
+    left: 0;
+    text-align: 'center';
+    color: 'grey';
+    font-size: 36;
+    
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    cursor: pointer;
+    
+}
+.noDashed:hover{
+    border-color: black;
+    background-color: rgb(240, 240, 149);
+    border-style:solid;
+}

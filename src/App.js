@@ -2,7 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import CvsUploader from './Component/CvsUploader'
+import XlsxUploader from './Component/XlsxUploader'
+
+import FileList from './Component/FileList'
+
 function App() {
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -19,6 +25,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <CvsUploader></CvsUploader>
+      <XlsxUploader></XlsxUploader>
+      <FileList></FileList>
     </div>
   );
 }
