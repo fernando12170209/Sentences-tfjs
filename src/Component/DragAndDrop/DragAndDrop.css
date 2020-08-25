@@ -4,16 +4,13 @@
     border-width: 2px;
     border-radius: 20px;
     display: flex;
-    background-color: rgb(240, 240, 149);
-    position: 'absolute';
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-
-
-
+background-color: rgb(240, 240, 149);
+position: 'absolute';
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+z-index: 9999
 }
 .noDashed{
     border-style: dashed;
@@ -31,18 +28,16 @@
     
     align-items: center;
     justify-content: center;
-    padding: 20x;
+    padding: 2px;
     cursor: pointer;
-
-
     
 }
 .noDashed:hover{
     border-color: black;
     background-color: rgb(240, 240, 149);
     border-style:solid;
-
-
-
-
+}
+.inner{
+    width: 100%;
+    display: 'inline-block'; position: 'relative';padding:0px
 }

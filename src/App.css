@@ -36,3 +36,73 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.col-9{
+  width: 75%;
+}
+.col-8{
+  width: 66%;
+}
+.col-3{
+  width: 25%;
+}
+.col-4{
+  width: 33%;
+}
+.col-6{
+  width: 50%;
+}
+.col-12{
+  width: 100%;
+}
+.w-100{
+  width: 100%;
+}
+.w-95{
+  width: 95% !important;
+}
+.w-90{
+  width: 90%;
+}
+.w-75{
+  width: 75%;
+}
+.w-50{
+  width: 50%;
+}
+.w-10{
+  width: 10%;
+}
+.w-5{
+  width: 5%;  
+}
+.w-45{
+  width: 45%;
+}
+.w-100{
+  width: 100%;
+}
+.text-derecha{
+  text-align: right;
+}
+.table-center{
+  margin-left: auto;
+  margin-right: auto;
+}
+.separacion_20{
+  padding-top: 20px;
+}
+.tachado {
+  text-decoration: line-through;
+}
+.padding-20{
+  padding: 20px;
+}

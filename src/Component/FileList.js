@@ -3,7 +3,7 @@ import DragAndDrop from './DragAndDrop'
 class FileList extends Component {
     state = {
         files: [
-            'Arrastra aqui tu archivo'
+            'Arrastra aquí tu archivo'
 
         //'Coquito ABC.pdf',
         ]
@@ -17,11 +17,16 @@ class FileList extends Component {
         this.setState({files: fileList})
     }
     render() {
+        /*
+        var nuevo_array = arr.map(function callback(currentValue, index, array) {
+            // Elemento devuelto de nuevo_array
+        }[, thisArg])
+        */
         return (
         <DragAndDrop handleDrop={this.handleDrop}>
             <div style={{height: 20, width: 250}}>
-            {this.state.files.map((file) =>
-                <div key={file.i}>{file}</div>
+            {this.state.files.map((file,index) =>
+                <div key={index} >{file}</div>
             )}
             </div>
         </DragAndDrop>

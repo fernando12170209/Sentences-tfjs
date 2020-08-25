@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "BankingBoT",
+  "name": "Bank Reconcilation BoT",
   "icons": [
     {
       "src": "favicon.ico",
