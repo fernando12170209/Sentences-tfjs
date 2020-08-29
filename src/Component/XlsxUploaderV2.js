@@ -9,6 +9,10 @@ import Popupflotante from './Popup/Popup_flotante'
 import SubsetSum from './SumSubset';
 import DragAndDrop from './DragAndDrop/DragAndDrop';
 import Checkbox from './Checkbox/Checkbox';
+
+import excelFile from '../files/BoucheoCajaBanco.xlsx';
+
+import {FaFileExcel} from 'react-icons/fa'
 //Icons
 import { AiOutlineCloseCircle } from "react-icons/ai";
 class XlsxUploaderV2 extends Component {
@@ -926,7 +930,10 @@ class XlsxUploaderV2 extends Component {
         
         return(
             <React.Fragment>
+                <div className="row">
                 
+                <a href={excelFile}><FaFileExcel size="26px" color="green"></FaFileExcel> Descagar plantilla excel</a>
+                </div>
                 <div className="row">
                     <div className="w-5"></div>
                     <div className="w-75">
