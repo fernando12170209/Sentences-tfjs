@@ -8,7 +8,7 @@ import Popupflotante from './Popup/Popup_flotante'
 //Para determinar que grupo de valores suman X
 import SubsetSum from './SumSubset';
 import DragAndDrop from './DragAndDrop/DragAndDrop';
-
+import Checkbox from './Checkbox/Checkbox';
 //Icons
 import { AiOutlineCloseCircle } from "react-icons/ai";
 class XlsxUploaderV2 extends Component {
@@ -927,25 +927,36 @@ class XlsxUploaderV2 extends Component {
         return(
             <React.Fragment>
                 
-                    <DragAndDrop  >
-                        <div className="w-100 padding-20"  onClick={()=>this.fileInput.click()}>
-                            <input
-                                required
-                                type="file"
-                                className="w-100"
-                                style={{display:'none'}} 
-                                name="file"
-                                id="file"
-                                key="file"
-                                onChange={(event)=>this.handleInputChange(event)}
-                                ref={fileInput=>this.fileInput=fileInput}
-                                placeholder="Archivo Excel"
-                            />
-                            {'Click para cargar Excel'}
-                            
-                        </div>
-                    </DragAndDrop>
+                <div className="row">
+                    <div className="w-5"></div>
+                    <div className="w-75">
+                        
+                <DragAndDrop  >
+                    <div className="w-100 padding-20"  onClick={()=>this.fileInput.click()}>
+                        <input
+                            required
+                            type="file"
+                            className="w-100"
+                            style={{display:'none'}} 
+                            name="file"
+                            id="file"
+                            key="file"
+                            onChange={(event)=>this.handleInputChange(event)}
+                            ref={fileInput=>this.fileInput=fileInput}
+                            placeholder="Archivo Excel"
+                        />
+                        {'Click para cargar Excel'}
+                        
+                    </div>
+                </DragAndDrop>
               
+                    </div>
+                    <div className="w-10"></div>
+                    <div className="w-10">
+                        <Checkbox></Checkbox>
+                    </div>
+                </div>
+
                 
                 
                 <div className="row separacion_20">

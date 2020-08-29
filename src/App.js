@@ -9,7 +9,7 @@ import CvsUploader from './Component/CvsUploader';
 import FileListMain from './Component/DragAndDrop/FileListMain';
 import XlsxUploaderV2 from './Component/XlsxUploaderV2';
 import TfIdf from './Component/Tf_Idf/Tf_Idf'
-import Checkbox from './Component/Checkbox/Checkbox';
+
 
 //import SubsetSum from './Component/SumSubset';
 
@@ -53,10 +53,10 @@ function App() {
       <FileListMain className="row"></FileListMain>*/}
       
       <div className="row">
-        <div className="w-5"></div>
-        <div className="w-75"><XlsxUploaderV2 ></XlsxUploaderV2></div>
-        <div className="w-10"></div>
-        <div className="w-10"><Checkbox></Checkbox></div>
+        
+        <XlsxUploaderV2 ></XlsxUploaderV2>
+       
+       
         
       </div>
       
