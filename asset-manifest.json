@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/Sentences-tfjs/static/css/main.40b781be.chunk.css",
-    "main.js": "/Sentences-tfjs/static/js/main.d6ee6ca5.chunk.js",
-    "main.js.map": "/Sentences-tfjs/static/js/main.d6ee6ca5.chunk.js.map",
+    "main.js": "/Sentences-tfjs/static/js/main.2132b857.chunk.js",
+    "main.js.map": "/Sentences-tfjs/static/js/main.2132b857.chunk.js.map",
     "runtime-main.js": "/Sentences-tfjs/static/js/runtime-main.3fe0bdcc.js",
     "runtime-main.js.map": "/Sentences-tfjs/static/js/runtime-main.3fe0bdcc.js.map",
     "static/js/2.c388505c.chunk.js": "/Sentences-tfjs/static/js/2.c388505c.chunk.js",
     "static/js/2.c388505c.chunk.js.map": "/Sentences-tfjs/static/js/2.c388505c.chunk.js.map",
     "index.html": "/Sentences-tfjs/index.html",
-    "precache-manifest.8d87149ba427370472defda6dc7ba910.js": "/Sentences-tfjs/precache-manifest.8d87149ba427370472defda6dc7ba910.js",
+    "precache-manifest.28a1a7a40ecd0da741842daaaf764038.js": "/Sentences-tfjs/precache-manifest.28a1a7a40ecd0da741842daaaf764038.js",
     "service-worker.js": "/Sentences-tfjs/service-worker.js",
     "static/css/main.40b781be.chunk.css.map": "/Sentences-tfjs/static/css/main.40b781be.chunk.css.map",
     "static/js/2.c388505c.chunk.js.LICENSE.txt": "/Sentences-tfjs/static/js/2.c388505c.chunk.js.LICENSE.txt",
-    "static/media/BoucheoCajaBanco.xlsx": "/Sentences-tfjs/static/media/BoucheoCajaBanco.dfce8044.xlsx"
+    "static/media/BoucheoCajaBanco.xlsx": "/Sentences-tfjs/static/media/BoucheoCajaBanco.06c76a27.xlsx"
   },
   "entrypoints": [
     "static/js/runtime-main.3fe0bdcc.js",
     "static/js/2.c388505c.chunk.js",
     "static/css/main.40b781be.chunk.css",
-    "static/js/main.d6ee6ca5.chunk.js"
+    "static/js/main.2132b857.chunk.js"
   ]
 }
