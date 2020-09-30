@@ -91,7 +91,10 @@
   width: 100%;
 }
 .text-derecha{
-  text-align: right;
+  text-align: right !important;
+}
+.text-izquierda{
+  text-align: left !important;
 }
 .table-center{
   margin-left: auto;

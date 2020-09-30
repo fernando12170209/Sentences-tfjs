@@ -41,6 +41,13 @@ class XlsxUploaderV2 extends Component {
         positionPopup:'right' //Popup show 'right': when caja is clicked ELSE 'left'
         
     }
+    //Funcion de apoyo 
+    yyyymmdd=(dateIn)=> {
+        var yyyy = dateIn.getFullYear();
+        var mm = dateIn.getMonth()+1; // getMonth() is zero-based
+        var dd  = dateIn.getDate();
+        return String(yyyy +"/"+ mm +"/" + dd); // Leading zeros for mm and dd
+     }
     //CARGAR EXCEL AL APLICATIVO
     handleInputChange=(e)=>{   
         //Cargar data de Excel al aplicativo emplea saveDataHandler()
@@ -112,11 +119,15 @@ class XlsxUploaderV2 extends Component {
             }
             
             for(var i=2;i<dataParse.length;i++ ){
+                //console.log(dataParse[i][0])
+                let myDate = new Date(( (dataParse[i][0]) - (25567 + 1))*86400*1000)
                 const temp={
                     id:i-2,
-                    fecha:(dataParse[i][0]),
-                    cargo:(dataParse[i][1]),
-                    abono:(dataParse[i][2]),
+                    fecha:myDate.toLocaleDateString(),
+                    //fecha:this.yyyymmdd(myDate),
+                    // fecha:(dataParse[i][0]),
+                    cargo:(dataParse[i][1]===undefined?0:dataParse[i][1]),
+                    abono:(dataParse[i][2]===undefined?0:dataParse[i][2]),
                     descripcion:(dataParse[i][3]),
                     showOptions:false,
                     loadingcajadata:false,
@@ -138,11 +149,17 @@ class XlsxUploaderV2 extends Component {
             }
 
             for(var j=2;j<dataParse2.length;j++ ){
+                // 1. Subtract number of days between Jan 1, 1900 and Jan 1, 1970, plus 1 (Google "excel leap year bug")             
+                // 2. Convert to milliseconds.
+                //Excel to date javascript
+                //Ref:https://gist.github.com/christopherscott/2782634
+                let myDate = new Date(( (dataParse2[j][0]) - (25567 + 1))*86400*1000)
                 const temp={
                     id:j-2,
-                    fecha:(dataParse2[j][0]),
-                    cargo:(dataParse2[j][1]),
-                    abono:(dataParse2[j][2]),
+                    fecha:myDate.toLocaleDateString(),
+                    //fecha:(dataParse2[j][0]),
+                    cargo:(dataParse2[j][1]===undefined?0:dataParse2[j][1]),
+                    abono:(dataParse2[j][2]===undefined?0:dataParse2[j][2]),
                     descripcion:(dataParse2[j][3]),
                     loadingbancodata:false,
                     showOptions:false,
@@ -200,9 +217,10 @@ class XlsxUploaderV2 extends Component {
         }
         
     }
+
     //Grabar los datos en las variables para las tablas Caja y Banco
     saveDataHandler=(Caja2,Banco2)=>{
-        //console.log('Caja2',Caja2)
+        console.log('Caja2',Caja2)
         //console.log('Banco2',Banco2)
         /*
         const dataCaja = {...this.state.dataCaja}
@@ -980,7 +998,7 @@ class XlsxUploaderV2 extends Component {
                     <table index="Caja_" key='Caja' className="table table-center">
                     <thead>
                         <tr index={'Caja1_'} key={'Caja1'}>
-                            <th colSpan="4">Caja</th>
+                            <th colSpan="4">Libro Contable Empresa</th>
                         </tr>
                         
                         <tr index={'Caja2_'} key={'Caja2'}>
@@ -995,10 +1013,10 @@ class XlsxUploaderV2 extends Component {
                         {this.state.dataCaja.data.map((data)=>
                             {return(<React.Fragment>
                             <tr index={'Caja_'+data.id} key={'Caja'+data.id} onClick={(e)=>this.handleObjectChange(e,data,1)} >
-                                <td></td>
+                                <td className="text-izquierda">{data.fecha}</td>
                                 <td className={data.usedFlagCargo===false?"":"tachado"}>{data.cargo}</td>
                                 <td className={data.usedFlagAbono===false?"":"tachado"}>{data.abono}</td>
-                                <td>{data.descripcion}</td>
+                                <td className="text-izquierda" >{data.descripcion}</td>
                                 {data.usedFlag===false?null:<td>Ok</td>}                               
                             </tr>
                             {
@@ -1042,7 +1060,7 @@ class XlsxUploaderV2 extends Component {
                     <table id='Banco_' key='Banco' className="table table-center">
                     <thead>
                         <tr index={'Banco1_'} key={'Banco1'}>
-                            <th colSpan="4">Banco</th>
+                            <th colSpan="4">Estado de Cuenta - Extracto Bancario</th>
                         </tr>
                         
                         <tr index={'Banco2_'} key={'Banco2'}>
@@ -1057,10 +1075,10 @@ class XlsxUploaderV2 extends Component {
                     {this.state.dataBanco.data.map((data)=>
                             {return(<React.Fragment>
                             <tr index={'Banco_'+data.id} key={'Banco'+data.id} onClick={(e)=>this.handleObjectChange(e,data,2)} >
-                                <td></td>
+                                <td className="text-izquierda">{data.fecha}</td>
                                 <td className={data.usedFlagCargo===false?"":"tachado"}>{data.cargo}</td>
                                 <td className={data.usedFlagAbono===false?"":"tachado"}>{data.abono}</td>
-                                <td>{data.descripcion}</td>
+                                <td className="text-izquierda">{data.descripcion}</td>
                                 {data.usedFlag===false?null:<td>Ok</td>}                                
                             </tr>
                             {
