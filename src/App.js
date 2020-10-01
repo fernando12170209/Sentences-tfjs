@@ -7,7 +7,7 @@ import CvsUploader from './Component/CvsUploader';
 
 //import FileList from './Component/FileList';
 import FileListMain from './Component/DragAndDrop/FileListMain';
-import XlsxUploaderV2 from './Component/XlsxUploaderV2';
+import XlsxUploaderV3 from './Component/XlsxUploaderV3';
 import TfIdf from './Component/Tf_Idf/Tf_Idf'
 
 
@@ -54,7 +54,7 @@ function App() {
       
       <div className="row">
         
-        <XlsxUploaderV2 ></XlsxUploaderV2>
+        <XlsxUploaderV3 ></XlsxUploaderV3>
        
        
         

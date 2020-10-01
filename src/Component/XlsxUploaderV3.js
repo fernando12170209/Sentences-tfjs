@@ -17,7 +17,7 @@ import excelFile from '../files/BoucheoCajaBanco.xlsx';
 import {FaFileExcel} from 'react-icons/fa'
 //Icons
 import { AiOutlineCloseCircle } from "react-icons/ai";
-class XlsxUploaderV2 extends Component {
+class XlsxUploaderV3 extends Component {
     state={
         opcion:0,
         showPopup:false,
@@ -374,7 +374,7 @@ class XlsxUploaderV2 extends Component {
         //Mientas se procesa mostrar mensaje de espera
         this.loadingdata(opcion,data)
         
-        var inputByUser=[]
+        //var inputByUser=[]
         var arrayFlag=[]
 
         var inputByUser2=[]
@@ -388,10 +388,10 @@ class XlsxUploaderV2 extends Component {
                         
                         if(this.state.dataBanco.data[i].abono*1!==0){
                             let objeto={id:this.state.dataBanco.data[i].id,valor:this.state.dataBanco.data[i].abono}
-                            inputByUser.push(this.state.dataBanco.data[i].abono)
+                            //inputByUser.push(this.state.dataBanco.data[i].abono)
                             inputByUser2.push(objeto)
                         }else{
-                            inputByUser.push(0.0001)
+                            //inputByUser.push(0.0001)
                         }
                         
                         //inputByUser.push(this.state.dataBanco.data[i].abono)
@@ -402,19 +402,20 @@ class XlsxUploaderV2 extends Component {
                 //var arrayFlag=[0,0,0,0,0,0,0,0,0,0]
                 //Define un array de valores de tamaño igual a inputByUser
                 
-                arrayFlag.length=inputByUser.length
+                //arrayFlag.length=inputByUser.length
                 //inicializamos 'arrayFlag' con 0: no se considera y 1 se considera
-                arrayFlag.fill(0)                              
+                //arrayFlag.fill(0)                              
                 const proposedSum=data.cargo   
                 //console.log('inputByUser',inputByUser.length)             
-                const resultado= await SubsetSum(inputByUser,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
+                //const resultado= await SubsetSum(inputByUser,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 //console.log('resultado',resultado)
                 console.log('inputByUser2',inputByUser2)
                 arrayFlag.length=inputByUser2.length
+                arrayFlag.fill(0) 
                 const resultado2=await SubSetSum2(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 console.log('resultado',resultado2)
 
-                this.returnListSolutions(resultado,1,'abono')
+                this.returnListSolutions(inputByUser2,resultado2,1,'abono')
                 
 
             }else{
@@ -425,10 +426,10 @@ class XlsxUploaderV2 extends Component {
                         
                         if(this.state.dataBanco.data[j].cargo*1!==0){
                             let objeto={id:this.state.dataBanco.data[j].id,valor:this.state.dataBanco.data[j].cargo}
-                            inputByUser.push(this.state.dataBanco.data[j].cargo)
+                            //inputByUser.push(this.state.dataBanco.data[j].cargo)
                             inputByUser2.push(objeto)
                         }else{
-                            inputByUser.push(0.0001)
+                            //inputByUser.push(0.0001)
                         }
                         
                         //inputByUser.push(this.state.dataBanco.data[j].cargo)
@@ -439,19 +440,20 @@ class XlsxUploaderV2 extends Component {
                 //var arrayFlag=[0,0,0,0,0,0,0,0,0,0]
                 //Define un array de valores de tamaño igual a inputByUser
                 
-                arrayFlag.length=inputByUser.length
+                //arrayFlag.length=inputByUser.length
                 //inicializamos 'arrayFlag' con 0: no se considera y 1 se considera
-                arrayFlag.fill(0) 
+                //arrayFlag.fill(0) 
                 //console.log('inputByUser',inputByUser.length)                             
                 const proposedSum=data.abono
-                const resultado= await SubsetSum(inputByUser,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
+                //const resultado= await SubsetSum(inputByUser,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 //console.log('resultado',resultado)
                 console.log('inputByUser2',inputByUser2)
                 arrayFlag.length=inputByUser2.length
+                arrayFlag.fill(0) 
                 const resultado2=await SubSetSum2(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 console.log('resultado',resultado2)
 
-                this.returnListSolutions(resultado,1,'cargo')
+                this.returnListSolutions(inputByUser2,resultado2,1,'cargo')
 
             }
 
@@ -466,10 +468,10 @@ class XlsxUploaderV2 extends Component {
                         
                         if(this.state.dataCaja.data[m].abono*1!==0){
                             let objeto={id:this.state.dataCaja.data[m].id,valor:this.state.dataCaja.data[m].abono}
-                            inputByUser.push(this.state.dataCaja.data[m].abono)
+                            //inputByUser.push(this.state.dataCaja.data[m].abono)
                             inputByUser2.push(objeto)
                         }else{
-                            inputByUser.push(0.0001)
+                            //inputByUser.push(0.0001)
                         }
                         
                         //inputByUser.push(this.state.dataCaja.data[m].abono)
@@ -480,15 +482,19 @@ class XlsxUploaderV2 extends Component {
                 //var arrayFlag=[0,0,0,0,0,0,0,0,0,0]
                 //Define un array de valores de tamaño igual a inputByUser
                 //Arrayflag=new Array(inputByUser.length)
-                arrayFlag.length=inputByUser.length
+                //arrayFlag.length=inputByUser.length
                 //inicializamos 'arrayFlag' con 0: no se considera y 1 se considera
-                arrayFlag.fill(0)      
+                //arrayFlag.fill(0)      
                 //console.log('inputByUser',inputByUser.length)          
                 const proposedSum=data.cargo                
-                const resultado= await SubsetSum(inputByUser,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
+                //const resultado= await SubsetSum(inputByUser,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 //console.log('resultado',resultado)
+                arrayFlag.length=inputByUser2.length
+                arrayFlag.fill(0)
+                const resultado2= await SubsetSum(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
+                console.log('resultado',resultado2)
                 
-                this.returnListSolutions(resultado,2,'abono')
+                this.returnListSolutions(inputByUser2,resultado2,2,'abono')
 
             }else{
                 //this.setState({loadingbancodata:true})
@@ -499,10 +505,10 @@ class XlsxUploaderV2 extends Component {
                         
                         if(this.state.dataCaja.data[n].cargo*1!==0){
                             let objeto={id:this.state.dataCaja.data[n].id,valor:this.state.dataCaja.data[n].cargo}
-                            inputByUser.push(this.state.dataCaja.data[n].cargo)
+                            //inputByUser.push(this.state.dataCaja.data[n].cargo)
                             inputByUser2.push(objeto)
                         }else{
-                            inputByUser.push(0.0001)
+                            //inputByUser.push(0.0001)
                         }
                         
                         //inputByUser.push(this.state.dataCaja.data[n].cargo)
@@ -513,16 +519,21 @@ class XlsxUploaderV2 extends Component {
                 //var arrayFlag=[0,0,0,0,0,0,0,0,0,0]
                 //Define un array de valores de tamaño igual a inputByUser
                 
-                arrayFlag.length=inputByUser.length
+                //arrayFlag.length=inputByUser.length
                 //inicializamos 'arrayFlag' con 0: no se considera y 1 se considera
-                arrayFlag.fill(0)      
+                //arrayFlag.fill(0)      
                 //console.log('inputByUser',inputByUser.length)      
                 const proposedSum=data.abono
                 //console.log('inputByUser',inputByUser)
-                const resultado= await SubsetSum(inputByUser,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
-                //console.log('resultado',resultado)
                 
-                this.returnListSolutions(resultado,2,'cargo')
+                //const resultado= await SubsetSum(inputByUser,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
+                //console.log('resultado',resultado)
+                arrayFlag.length=inputByUser2.length
+                arrayFlag.fill(0)
+                const resultado2= await SubsetSum(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
+                console.log('resultado',resultado2)
+                
+                this.returnListSolutions(inputByUser2,resultado2,2,'cargo')
             }
         }
 
@@ -531,16 +542,18 @@ class XlsxUploaderV2 extends Component {
         //this.setState({showPopupFloat:false})
 
     }
-    returnListSolutions(resultado,opcion,parametro){
+    returnListSolutions(inputByUser,resultado,opcion,parametro){
         
         //opcion=1 Caja , opcion=2 Banco
         //parametro='abono' , parametro='cargo' 
         const p=parametro
         this.setState({parametro:p})
-        //console.log(parametro)
+        //console.log('parametro',parametro)
+        //console.log('opcion,opcion)
 
         //alert(opcion===1?"Buscar en Banco ":"Buscar en Caja ",this.state.parametro)
-        
+        //resultado=[{0,0,0,1},{0,1,1,0},{1,1,0,0}] Todas las formas en la que los valores suman
+        //inputByUser=[{id:1,valor:},{id:2,valor:},{id:3,valor:},{id:4,valor:}]
         if(opcion===1){
             if(resultado.length>0){
                 //Hay Resultados
@@ -556,9 +569,11 @@ class XlsxUploaderV2 extends Component {
                     for( var pos=0;pos<resultado[opt].length;pos++){
                         //console.log(opt)
                         if(resultado[opt][pos]===1){
-                            dataBancotempData[pos].selected=true
+                            //dataBancotempData[pos].selected=true
+                            dataBancotempData[inputByUser[pos].id].selected=true                            
                             //console.log(dataBancotempData[pos])
-                            result.push(dataBancotempData[pos])
+                            //result.push(dataBancotempData[pos])
+                            result.push(dataBancotempData[inputByUser[pos].id])
                         }
                     }
                     //Result. index devuleve la posicion de la lista de opciones
@@ -602,9 +617,11 @@ class XlsxUploaderV2 extends Component {
                     for( var poss=0;poss<resultado[opts].length;poss++){
                         //console.log(opt)
                         if(resultado[opts][poss]===1){
-                            dataCajatempData[poss].selected=true
+                            //dataCajatempData[poss].selected=true
+                            dataCajatempData[inputByUser[pos].id].selected=true  
                             //console.log(dataBancotempData[pos])
-                            results.push(dataCajatempData[poss])
+                            //results.push(dataCajatempData[poss])
+                            results.push(dataCajatempData[inputByUser[pos].id])
                         }
                     }
                     //Result. index devuleve la posicion de la lista de opciones
@@ -1212,4 +1229,4 @@ class XlsxUploaderV2 extends Component {
     }
 
 }
-export default  XlsxUploaderV2;
+export default  XlsxUploaderV3;
