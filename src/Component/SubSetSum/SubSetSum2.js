@@ -19,7 +19,7 @@
         const isValidSubset=( index)=>{
             //console.log(index*1)
             //console.log('inputByUser=>',inputByUser)
-            let sum=0
+            let sum=0  
             let remainingWeigths=0
             for(let i=0;i<=index;i++ ){
                 sum+=arrayFlag[i]*inputByUser[i].valor

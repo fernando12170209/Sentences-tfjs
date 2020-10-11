@@ -112,3 +112,11 @@
 .padding-20{
   padding: 20px;
 }
+.botonInstruccion{
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:10px;
+  border:3px;
+  border-bottom-color:salmon;
+  color: blue;
+}

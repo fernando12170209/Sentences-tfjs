@@ -251,48 +251,19 @@ class XlsxUploaderV3 extends Component {
         });  
     }
     dibujartabla(){
-        //opcion=1 Caja , opcion=2 Banco
-        
         return(
         <React.Fragment>
-            {
-                this.state.index*1===1?
-                <div className="row">
-                    <div className="col-4">
-                        <button onClick={(e)=>{this.procesarData(e,this.state.dataCaja)}}>Procesar Cargo</button>
-                    </div>
-                    <div className="col-4"></div>
-                    <div className="col-4">
-                        <button onClick={(e)=>{this.procesarData(e,this.state.dataCaja)}}>Procesar Abono</button>
-                    </div>
-                </div>
-                :
-                <div className="row">
-                    <div className="col-4">
-                        <button onClick={(e)=>{this.procesarData(e,this.state.dataBanco)}}>Procesar Cargo</button>
-                    </div>
-                    <div className="col-4"></div>
-                    <div className="col-4">
-                        <button onClick={(e)=>{this.procesarData(e,this.state.dataBanco)}}>Procesar Abono</button>
-                    </div>
-                </div>
-                
-
-            }
-            <div className="row">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-
-                </table>
-
-            </div>
+            <strong>Instrucciones</strong>
+            <div className="row">1.- Descargar la plantilla Excel</div>
+            <div className="row">2.- Descargar la plantilla Excel</div>
+            <div className="row">3.- Descargar la plantilla Excel</div>
+            <div className="row">4.- Descargar la plantilla Excel</div>
+            <div className="row">5.- Descargar la plantilla Excel</div>
+            <div className="row">6.- Descargar la plantilla Excel</div>
+            <div className="row">7.- Descargar la plantilla Excel</div>
+            <div className="row">5.- Descargar la plantilla Excel</div>
+            <div className="row">6.- Descargar la plantilla Excel</div>
+            <div className="row">7.- Descargar la plantilla Excel</div>
         </React.Fragment>
         
         )
@@ -1025,8 +996,10 @@ class XlsxUploaderV3 extends Component {
         return(
             <React.Fragment>
                 <div className="row">
-                
-                <a href={excelFile}><FaFileExcel size="26px" color="green"></FaFileExcel> Descagar plantilla excel</a>
+                    <button className="botonInstruccion" onClick={()=>this.togglePopup()}>Instrucciones</button>
+                </div>
+                <div className="row">                
+                    <a href={excelFile}><FaFileExcel size="26px" color="green"></FaFileExcel> Descagar plantilla excel</a>
                 </div>
                 <div className="row">
                     <div className="w-5"></div>
@@ -1198,7 +1171,7 @@ class XlsxUploaderV3 extends Component {
                 {this.state.showPopup ?  
                     <Popup  
                     contenido={this.dibujartabla()}
-                    titulo={'Seleccione opción'}  
+                    titulo={'Lea atentamente'}  
                     closePopup={this.togglePopup.bind(this)}  
                     />
                       
@@ -1218,6 +1191,8 @@ class XlsxUploaderV3 extends Component {
                     </div>
                     <div className="col-4"></div>
                 </div>
+
+                
                 
 
                 

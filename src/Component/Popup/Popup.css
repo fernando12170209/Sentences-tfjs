@@ -28,7 +28,7 @@
   }
   .popup_contenido {
     background-color: white;
-    width:80%;
+    width:95% !important;
     left: auto;
     padding: 10px;
     margin: 10% auto;
@@ -64,4 +64,7 @@
   }
   .col-pop-10{
     width: 8%;
+  }
+  .contenido{
+    overflow-y: scroll;
   }
