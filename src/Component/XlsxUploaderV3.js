@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import * as XLSX from 'xlsx';
 import './Table.css';
 import Popup from './Popup/Popup'
 import Popupflotante from './Popup/Popup_flotante'
 
 
 //Para determinar que grupo de valores suman X
-import SubsetSum from './SumSubset';
+//import SubsetSum from './SumSubset';
 import SubSetSum2 from './SubSetSum/SubSetSum2';
 
 import DragAndDrop from './DragAndDrop/DragAndDrop';
@@ -17,11 +16,21 @@ import excelFile from '../files/BoucheoCajaBanco.xlsx';
 import {FaFileExcel} from 'react-icons/fa'
 //Icons
 import { AiOutlineCloseCircle } from "react-icons/ai";
+//npm i xlsx
+import * as XLSX from 'xlsx';
+//npm i file-saver
+import * as FileSaver from 'file-saver';
 class XlsxUploaderV3 extends Component {
     state={
+
         opcion:0,
         showPopup:false,
         showPopupFloat:false,
+
+        flagsCheckbox:{
+            flagCargar:true,
+            flagDescargar:false
+        },
 
         showOptions:false,
         showtable:false,
@@ -42,6 +51,52 @@ class XlsxUploaderV3 extends Component {
         },
         positionPopup:'right' //Popup show 'right': when caja is clicked ELSE 'left'
         
+    }
+    toggleMultiCheckbox=(opt)=>{
+        
+        const stateTemp={...this.state}
+        for(var temp in stateTemp.flagsCheckbox){
+            stateTemp.flagsCheckbox[temp]=false
+        }
+        stateTemp.flagsCheckbox[opt]=!stateTemp.flagsCheckbox[opt]
+
+        this.setState(stateTemp)
+
+        if(this.state.flagsCheckbox.flagDescargar){
+            this.btnDownloadHandler()
+        }
+        
+    }
+    descargarTablas=(csvData, fileName)=>{
+
+        console.log(csvData)
+
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+        //utf-8 caracteres especiales o 1252 ASCI en SQL
+    
+        //formato csv, excel cae en redunancia al separar los campos por espacios
+        const wsCaja = XLSX.utils.json_to_sheet(csvData.caja);
+        const wsBanco = XLSX.utils.json_to_sheet(csvData.banco);
+        //nombre por default en Hoja
+        const wb = { Sheets: { 'Caja': wsCaja,'Banco':wsBanco }, SheetNames: ['Caja','Banco'] };
+        //Tamaño de buffer en promedio de navegadores "2Gb"
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], {type: fileType});
+        //Save como csv
+        FileSaver.saveAs(data, fileName + fileExtension);
+
+    }
+    btnDownloadHandler=()=>{
+        this.toggleMultiCheckbox('flagCargar')
+        const fileData={
+            fileName:"ConciliacionCajaBanco_Results",
+            data:{
+                caja:[{id:1,descripcion:"uno"},{id:2,descripcion:"dos"},{id:3,descripcion:"tres"}],
+                banco:[{id:1,descripcion:"cuatro"},{id:2,descripcion:"cinco"},{id:3,descripcion:"seis"}]
+            }
+        }
+        this.descargarTablas(fileData.data,fileData.fileName)
     }
     //Funcion de apoyo 
     yyyymmdd=(dateIn)=> {
@@ -253,17 +308,17 @@ class XlsxUploaderV3 extends Component {
     dibujartabla(){
         return(
         <React.Fragment>
-            <strong>Instrucciones</strong>
-            <div className="row">1.- Descargar la plantilla Excel</div>
-            <div className="row">2.- Descargar la plantilla Excel</div>
-            <div className="row">3.- Descargar la plantilla Excel</div>
-            <div className="row">4.- Descargar la plantilla Excel</div>
-            <div className="row">5.- Descargar la plantilla Excel</div>
-            <div className="row">6.- Descargar la plantilla Excel</div>
-            <div className="row">7.- Descargar la plantilla Excel</div>
-            <div className="row">5.- Descargar la plantilla Excel</div>
-            <div className="row">6.- Descargar la plantilla Excel</div>
-            <div className="row">7.- Descargar la plantilla Excel</div>
+            <strong className="ROW">Instrucciones</strong>
+            <div className="row text-justify">1.- Descargar la plantilla Excel</div>
+            <div className="row text-justify">2.- Ingrese la información registrada en su contabilidad de las operaciones bancarias en la hoja Caja Columna B:D (Col A y E son optativos).</div>
+            <div className="row text-justify">3.- Ingrese la información de estado de cuenta bancaria en la hoja Bancos Columna B:D (Col A y E son optativos).</div>
+            <div className="row text-justify">4.- No es necesario que Reserve la primera fila tanto la información contable como la de bancos para colocar los saldos</div>
+            <div className="row text-justify">5.- Verifique que en la información contable la operaciones tengan fecha de operación, en la información bancaria todas lista operaciones deben tener N° de operación y fecha de la misma. De no cumplirse lo anterior, el sistema procesara los registros que cumplan....</div>
+            <div className="row text-justify">6.- Preferentemente inicie por la información Contable, presione click  en las celdas que contengan importe (ya sea un cargo o abono) e inicie la validación, se abrirá una ventana donde debe seleccionar la operación a la que corresponde de acuerdo al extracto Bancario, las operaciones que se van validando se mostraran con un simbolo @, y las que que faltan asociar apareceran como #</div>
+            <div className="row text-justify">7.- De ser el caso, aparecerá una ventana para indicar la razón por la cual una operación no figura en el extracto Bancario, en esta sección se puede elegir las opciones 1 y 2.</div>
+            <div className="row text-justify">8.- Si ya termino con la información contable, pase la información del extracto bancario y ubique aquellas operaciones que no tienen el check, haga doble click sobre los importes e indique la razón  por la cual no estan registradas en la contabilidad seleccionando entre las opciones 3 y 4</div>
+            <div className="row text-justify">9.- Verifique las columnas F y M todas deberían tener una anotación, si ya se verificó esto presione "PROCESAR" para terminar la validación, revise la hoja "Anexo y Resumen</div>
+            <div className="row text-justify">10.- Descargar los resultados a Excel</div>
         </React.Fragment>
         
         )
@@ -386,7 +441,7 @@ class XlsxUploaderV3 extends Component {
                 const resultado2=await SubSetSum2(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 console.log('resultado',resultado2)
 
-                this.returnListSolutions(inputByUser2,resultado2,1,'abono')
+                this.returnListSolutions2(inputByUser2,resultado2,1,'abono')
                 
 
             }else{
@@ -424,7 +479,7 @@ class XlsxUploaderV3 extends Component {
                 const resultado2=await SubSetSum2(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 console.log('resultado',resultado2)
 
-                this.returnListSolutions(inputByUser2,resultado2,1,'cargo')
+                this.returnListSolutions2(inputByUser2,resultado2,1,'cargo')
 
             }
 
@@ -462,10 +517,11 @@ class XlsxUploaderV3 extends Component {
                 //console.log('resultado',resultado)
                 arrayFlag.length=inputByUser2.length
                 arrayFlag.fill(0)
-                const resultado2= await SubsetSum(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
+                console.log('BANCO','cargo','inputByUser2',inputByUser2)
+                const resultado2= await SubSetSum2(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 console.log('resultado',resultado2)
                 
-                this.returnListSolutions(inputByUser2,resultado2,2,'abono')
+                this.returnListSolutions2(inputByUser2,resultado2,2,'abono')
 
             }else{
                 //this.setState({loadingbancodata:true})
@@ -501,10 +557,11 @@ class XlsxUploaderV3 extends Component {
                 //console.log('resultado',resultado)
                 arrayFlag.length=inputByUser2.length
                 arrayFlag.fill(0)
-                const resultado2= await SubsetSum(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
+                console.log('BANCO','abono','inputByUser2',inputByUser2)
+                const resultado2= await SubSetSum2(inputByUser2,arrayFlag,proposedSum).then(this.loadingdata(opcion,data))
                 console.log('resultado',resultado2)
                 
-                this.returnListSolutions(inputByUser2,resultado2,2,'cargo')
+                this.returnListSolutions2(inputByUser2,resultado2,2,'cargo')
             }
         }
 
@@ -533,7 +590,7 @@ class XlsxUploaderV3 extends Component {
                 var dataBancotempOptions=[]
                 const dataBancotempData= {...this.state.dataBanco.data.filter(a=>parametro==='abono'?a.usedFlagAbono===false:a.usedFlagCargo===false)}
                 //console.log('dataBancotempData',dataBancotempData)
-                for(var opt=0;opt<resultado.length;opt++){
+                for(var opt=0;opt<=resultado.length;opt++){
                     //Iterar entre la posiciones de la opcion
                     //console.log(resultado[opt])
                     var result=[]
@@ -580,19 +637,147 @@ class XlsxUploaderV3 extends Component {
                 //const dataBancotemp={...this.state.dataBanco}
                 var dataCajatempOptions=[]
                 const dataCajatempData= {...this.state.dataCaja.data.filter(a=>parametro==='abono'?a.usedFlagAbono===false:a.usedFlagCargo===false)}
-                //console.log('dataCajatempData',dataCajatempData)
-                for(var opts=0;opts<resultado.length;opts++){
+                console.log('dataCajatempData',dataCajatempData)
+                for(var opts=0;opts<=resultado.length;opts++){
                     //Iterar entre la posiciones de la opcion
-                    //console.log(resultado[opt])
+                    console.log('-->',resultado)
                     var results=[]
                     for( var poss=0;poss<resultado[opts].length;poss++){
                         //console.log(opt)
                         if(resultado[opts][poss]===1){
                             //dataCajatempData[poss].selected=true
-                            dataCajatempData[inputByUser[pos].id].selected=true  
+                            dataCajatempData[inputByUser[poss].id].selected=true  
                             //console.log(dataBancotempData[pos])
                             //results.push(dataCajatempData[poss])
-                            results.push(dataCajatempData[inputByUser[pos].id])
+                            results.push(dataCajatempData[inputByUser[poss].id])
+                        }
+                    }
+                    //Result. index devuleve la posicion de la lista de opciones
+                    results.index=opts
+                    //Show listoption by index
+                    results.flag=false
+                    dataCajatempOptions.push(results)
+                }
+                //console.log(dataCajatempOptions)
+                const listOptions={...this.state.listOptions}
+                listOptions.flag=true
+                listOptions.listdata=dataCajatempOptions
+                listOptions.optionSelected=opcion
+                this.setState({listOptions:listOptions})
+                this.setState({showPopupFloat:true})
+                this.setState({positionPopup:'right'})           
+            }else{
+                //No hay resultados
+                alert('No hay resultados que mostrar')
+            }
+        }
+
+        
+
+    }
+
+    returnListSolutions2(inputByUser,resultado_,opcion,parametro){
+        
+        //opcion=1 Caja , opcion=2 Banco
+        //parametro='abono' , parametro='cargo' 
+        const p=parametro
+        this.setState({parametro:p})
+        //console.log('parametro',parametro)
+        //console.log('opcion,opcion)
+        const resultado=[...resultado_]
+        const r=[...resultado_]
+        const numOpciones=r.length
+        console.log('resultado',resultado)
+        console.log('resultado.length',resultado.length)
+        //alert(opcion===1?"Buscar en Banco ":"Buscar en Caja ",this.state.parametro)
+        //resultado=[{0,0,0,1},{0,1,1,0},{1,1,0,0}] Todas las formas en la que los valores suman
+        //inputByUser=[{id:1,valor:},{id:2,valor:},{id:3,valor:},{id:4,valor:}]
+        if(opcion===1){
+            if(numOpciones>0){
+                //Hay Resultados
+                //iterar entre la lista de opciones
+                //const dataBancotemp={...this.state.dataBanco}
+                var dataBancotempOptions=[]
+                const dataBancotempData= {...this.state.dataBanco.data.filter(a=>parametro==='abono'?a.usedFlagAbono===false && a.abono!==0:a.usedFlagCargo===false && a.cargo!==0)}
+                //console.log('dataBancotempData',dataBancotempData)
+                let largo=0
+                for(var temp in dataBancotempData){
+                    console.log(temp)
+                    largo+=1
+                }
+                for(var opt=0;opt<resultado.length;opt++){
+                    //Iterar entre la posiciones de la opcion
+                    //console.log(resultado[opt])
+                    var result=[]
+                    for( var pos=0;pos<resultado[opt].length;pos++){
+                        //console.log(opt)
+                        if((resultado[opt][pos])*1===1*1){
+                            for(var m=0;m<largo;m++){
+                                if(dataBancotempData[m].id===inputByUser[pos].id)
+                                {                                    
+                                    dataBancotempData[m].selected=true
+                                    result.push(dataBancotempData[m])
+                                }
+                            }
+                        }
+                    }
+                    //Result. index devuleve la posicion de la lista de opciones
+                    result.index=opt
+                    //Show listoption by index
+                    result.flag=false
+                    dataBancotempOptions.push(result)
+                }
+                //console.log(dataBancotempOptions)
+
+                const listOptions={...this.state.listOptions}
+                listOptions.flag=true
+                listOptions.listdata=dataBancotempOptions
+                listOptions.optionSelected=opcion
+                this.setState({listOptions:listOptions})
+                this.setState({showPopupFloat:true})
+                this.setState({positionPopup:'left'})
+
+                //console.log('listOptions',listOptions)
+                
+            }else{
+                //No hay resultados
+                //console.log('No hay resultados')
+
+                alert('No hay resultados que mostrar')
+            }
+
+        }
+        else{
+            if(numOpciones>0){
+                //Hay Resultados
+                //iterar entre la lista de opciones
+                //const dataBancotemp={...this.state.dataBanco}
+                var dataCajatempOptions=[]
+                const dataCajatempData= {...this.state.dataCaja.data.filter(a=>parametro==='abono'?a.usedFlagAbono===false && a.abono!==0 :a.usedFlagCargo===false && a.cargo!==0 )}
+                //console.log('dataCajatempData',dataCajatempData)
+                //console.log('resultado.length',resultado.length)
+                
+                let largo=0
+                for(var temp2 in dataCajatempData){
+                    console.log(temp2)
+                    largo+=1
+                }
+                
+                for(var opts=0;opts<numOpciones;opts++){
+                    //Iterar entre la posiciones de la opcion
+                    //console.log('-->',opts)
+                    //console.log('<->',{...resultado})
+                    //console.log('inputByUser',inputByUser)
+                    var results=[]
+                    for( var poss=0;poss<inputByUser.length;poss++){
+                        if((resultado[opts][poss])*1===1*1){
+                            for(var j=0;j<largo;j++){
+                                if(dataCajatempData[j].id===inputByUser[poss].id)
+                                {                                    
+                                    dataCajatempData[j].selected=true
+                                    results.push(dataCajatempData[j])
+                                }
+                            }
                         }
                     }
                     //Result. index devuleve la posicion de la lista de opciones
@@ -995,6 +1180,7 @@ class XlsxUploaderV3 extends Component {
         
         return(
             <React.Fragment>
+                
                 <div className="row">
                     <button className="botonInstruccion" onClick={()=>this.togglePopup()}>Instrucciones</button>
                 </div>
@@ -1027,7 +1213,7 @@ class XlsxUploaderV3 extends Component {
                     </div>
                     <div className="w-10"></div>
                     <div className="w-10">
-                        <Checkbox></Checkbox>
+                        <Checkbox changeFlags={(a)=>this.toggleMultiCheckbox(a)} flags={(this.state.flagsCheckbox)}></Checkbox>
                     </div>
                 </div>
 
@@ -1066,7 +1252,9 @@ class XlsxUploaderV3 extends Component {
                                 <td className={data.usedFlagCargo===false?"":"tachado"}>{data.cargo}</td>
                                 <td className={data.usedFlagAbono===false?"":"tachado"}>{data.abono}</td>
                                 <td className="text-izquierda" >{data.descripcion}</td>
-                                {data.usedFlag===false?null:<td>Ok</td>}                               
+                                {/*data.usedFlag===false?null:<td>Ok</td>*/}
+                                {data.usedFlagCargo===false?"":<AiOutlineCloseCircle className="icono-check" onClick={(e)=>this.restoreMatching(e,data,2,'abono')} size={'4vh'}></AiOutlineCloseCircle> } 
+                                {data.usedFlagAbono===false?"":<AiOutlineCloseCircle className="icono-check" onClick={(e)=>this.restoreMatching(e,data,2,'cargo')} size={'4vh'}></AiOutlineCloseCircle> }                               
                             </tr>
                             {
                                 data.showOptions?
@@ -1123,12 +1311,14 @@ class XlsxUploaderV3 extends Component {
                     <tbody>
                     {this.state.dataBanco.data.map((data)=>
                             {return(<React.Fragment>
-                            <tr index={'Banco_'+data.id} key={'Banco'+data.id} onClick={(e)=>this.handleObjectChange(e,data,2)} >
+                            <tr index={'Banco_'+data.id} key={'Banco'+data.id} onClick={(e)=>this.handleObjectChange(e,data,2)} >                                 
                                 <td className="text-izquierda">{data.fecha}</td>
                                 <td className={data.usedFlagCargo===false?"":"tachado"}>{data.cargo}</td>
                                 <td className={data.usedFlagAbono===false?"":"tachado"}>{data.abono}</td>
                                 <td className="text-izquierda">{data.descripcion}</td>
-                                {data.usedFlag===false?null:<td>Ok</td>}                                
+                                {/*data.usedFlag===false?null:<td>Ok</td>*/}        
+                                {data.usedFlagCargo===false?"":<AiOutlineCloseCircle className="icono-check" onClick={(e)=>this.restoreMatching(e,data,1,'abono')} size={'4vh'}></AiOutlineCloseCircle> } 
+                                {data.usedFlagAbono===false?"":<AiOutlineCloseCircle className="icono-check" onClick={(e)=>this.restoreMatching(e,data,1,'cargo')} size={'4vh'}></AiOutlineCloseCircle> }                        
                             </tr>
                             {
                                 data.showOptions?

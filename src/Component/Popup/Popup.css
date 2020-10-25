@@ -68,3 +68,6 @@
   .contenido{
     overflow-y: scroll;
   }
+  .text-justify{
+    text-align: justify;
+  }
